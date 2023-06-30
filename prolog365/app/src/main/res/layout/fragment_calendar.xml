@@ -4,19 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="50dp"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <TextView
-        android:id="@+id/text_calendar"
+    <CalendarView
+        android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toTopOf="@+id/calendar_text_bar"/>
+
+    <TextView
+        android:id="@+id/calendar_text_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#EEEEEE"
+        android:textSize="20dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="text-bar"
+        app:layout_constraintBottom_toTopOf="@id/event_recycler_view"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/event_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginBottom="50dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/recyclerview_item_calendar"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_text_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
