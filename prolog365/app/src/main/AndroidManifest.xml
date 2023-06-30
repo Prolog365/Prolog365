@@ -6,8 +6,8 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS" tools:remove="android:maxSdkVersion"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" tools:remove="android:maxSdkVersion"></uses-permission>
 
     <application
         android:allowBackup="true"
