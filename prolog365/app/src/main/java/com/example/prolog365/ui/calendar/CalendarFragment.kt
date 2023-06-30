@@ -17,21 +17,12 @@ class CalendarFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val calendarViewModel =
-            ViewModelProvider(this).get(CalendarViewModel::class.java)
-
+    //private lateinit var calenderViewAdapter: CalendarRecyclerViewAdapter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val calendarViewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCalendar
-        calendarViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
