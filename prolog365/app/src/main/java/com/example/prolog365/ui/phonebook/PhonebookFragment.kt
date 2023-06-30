@@ -81,10 +81,16 @@ class PhonebookFragment : Fragment() {
     fun startProcess(){
         getPhoneNumbers(sortText, searchText)
         //setSearchListener()
+        binding.recyclerviewPhonebook.adapter = PhonebookAdapter(phonebookList)
+        binding.recyclerviewPhonebook.layoutManager =
+            LinearLayoutManager(activity)
+
     }
 
 
     fun getPhoneNumbers(sort:String, searchName:String?){
+        phonebookList.clear()
+        Log.d("MyLog", "getPhoneNumbers")
         val addressUri = ContactsContract.Contacts.CONTENT_URI
         val phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
 
