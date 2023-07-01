@@ -45,7 +45,7 @@ interface ScheduleDao{
     fun clear()
 
     @Query("SELECT * FROM table_schedule WHERE scheduleName = :scheduleName")
-    fun getScheduleWithName(scheduleName: String)
+    fun getScheduleWithName(scheduleName: String) : List<ScheduleEntity>
 }
 
 class ScheduleDB {

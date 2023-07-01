@@ -107,12 +107,12 @@ class PhonebookFragment : Fragment() {
     fun initDatabase(){
         ScheduleDB.initDB(this)
         // DB TEST
-        CoroutineScope(Dispatchers.IO).launch{
+        /*CoroutineScope(Dispatchers.IO).launch{
             ScheduleDB.clearDB()
             ScheduleDB.insertDB("Schedule1", LocalDate.now(), "010-1234-5678", "drawable/asdf.png")
             ScheduleDB.insertDB("Schedule2", LocalDate.now(), "010-5678-1234", "drawable/bcde.png")
             ScheduleDB.logDB()
-        }
+        }*/
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
