@@ -25,6 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentPhonebookBinding
 import com.example.prolog365.databinding.InfoPhonebookBinding
+import com.example.prolog365.db.ScheduleDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 
 class PhonebookFragment : Fragment() {
@@ -36,6 +41,7 @@ class PhonebookFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     val phonebookList = ArrayList<PhonebookData>()
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -97,10 +103,22 @@ class PhonebookFragment : Fragment() {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initDatabase(){
+        ScheduleDB.initDB(this)
+        // DB TEST
+        CoroutineScope(Dispatchers.IO).launch{
+            ScheduleDB.clearDB()
+            ScheduleDB.insertDB("Schedule1", LocalDate.now(), "010-1234-5678", "drawable/asdf.png")
+            ScheduleDB.insertDB("Schedule2", LocalDate.now(), "010-5678-1234", "drawable/bcde.png")
+            ScheduleDB.logDB()
+        }
+    }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     fun startProcess(){
         getPhoneNumbers(sortText, searchText)
+        initDatabase()
         //setSearchListener()
         setRecyclerViewPhonebook()
     }
@@ -138,11 +156,10 @@ class PhonebookFragment : Fragment() {
                 phonebookList.add(phonebookData)
             }
         }
-
-
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getPhonebookData(){
         if(isLower23() || isPermitted()){
             Log.d("MyLog", "Permission Get")
