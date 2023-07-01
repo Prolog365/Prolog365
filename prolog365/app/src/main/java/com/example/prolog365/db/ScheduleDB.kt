@@ -46,6 +46,9 @@ interface ScheduleDao{
 
     @Query("SELECT * FROM table_schedule WHERE scheduleName = :scheduleName")
     fun getScheduleWithName(scheduleName: String) : List<ScheduleEntity>
+
+    @Query("SELECT * FROM table_schedule WHERE phoneNumber = :phonenumber")
+    fun getScheduleWithPhonenumber(phonenumber: String) : List<ScheduleEntity>
 }
 
 class ScheduleDB {
@@ -64,8 +67,6 @@ class ScheduleDB {
                         ).build()
                     }
             }
-            scheduleDatabase
-
         }
 
         suspend fun insertDB(_scheduleName: String, _date: LocalDate, _phoneNumber: String, _picture: String){
@@ -79,6 +80,10 @@ class ScheduleDB {
                 index, scheduleEntity ->
                 Log.d("MyLog", "Schedule Index : " + scheduleEntity.idx + " | Schedule Name : " + scheduleEntity.scheduleName + " | Date : " + scheduleEntity.date + " | Phone Number : " + scheduleEntity.phoneNumber + " | Picture Location : " + scheduleEntity.picture)
             }
+        }
+
+        suspend fun getScheduleWithPhonenumber(phonenumber: String): List<ScheduleEntity>? {
+            return scheduleDatabase?.scheduleDao()?.getScheduleWithPhonenumber(phonenumber)
         }
 
         suspend fun clearDB(){
