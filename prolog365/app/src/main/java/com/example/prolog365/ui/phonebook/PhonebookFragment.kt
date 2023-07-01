@@ -1,28 +1,36 @@
 package com.example.prolog365.ui.phonebook
 
 import android.Manifest
-import android.content.ContentResolver
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentPhonebookBinding
+import com.example.prolog365.databinding.InfoPhonebookBinding
+
 
 class PhonebookFragment : Fragment() {
 
     private var _binding: FragmentPhonebookBinding? = null
+    private var _infobinding: InfoPhonebookBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,33 +41,46 @@ class PhonebookFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val phonebookViewModel =
-            ViewModelProvider(this).get(PhonebookViewModel::class.java)
 
         _binding = FragmentPhonebookBinding.inflate(inflater, container, false)
+        _infobinding = InfoPhonebookBinding.inflate(inflater, container, false)
         val root: View = binding.root
         getPhonebookData()
-
-        /*
-        phonebookList.add(PhonebookData("가나다", "010-1234-5678"))
-        phonebookList.add(PhonebookData("나다라", "010-2345-6789"))
-        phonebookList.add(PhonebookData("다라마", "010-3345-6789"))
-        phonebookList.add(PhonebookData("라마바", "010-4345-6789"))
-        phonebookList.add(PhonebookData("마바사", "010-5345-6789"))
-        phonebookList.add(PhonebookData("바사아", "010-6345-6789"))
-        phonebookList.add(PhonebookData("사아자", "010-7345-6789"))
-        phonebookList.add(PhonebookData("아자차", "010-8345-6789"))
-        phonebookList.add(PhonebookData("자차카", "010-9345-6789"))
-        phonebookList.add(PhonebookData("차카타", "010-0345-6789"))
-         */
-
-        binding.recyclerviewPhonebook.adapter = PhonebookAdapter(phonebookList)
-        if (container != null) {
-            binding.recyclerviewPhonebook.layoutManager =
-                LinearLayoutManager(container.getContext())
-        }
-
+        setRecyclerViewPhonebook()
         return root
+    }
+
+    fun setRecyclerViewPhonebook(){
+        val adapter = PhonebookAdapter(phonebookList)
+        binding.recyclerviewPhonebook.adapter = adapter
+        binding.recyclerviewPhonebook.layoutManager = LinearLayoutManager(activity)
+
+        adapter.itemClick = object : PhonebookAdapter.ItemClick{
+            override fun onClick(view: View, position: Int){
+                // object click event
+                clickItemPhonebook(phonebookList[position])
+            }
+        }
+    }
+
+    fun makeInfoData(phonebookData: PhonebookData){
+        _infobinding?.nameTextInfoPhonebook?.text = phonebookData.name
+        _infobinding?.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
+    }
+
+
+    fun showPopupWindow(){
+        val popupWindow = PopupWindow(_infobinding?.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        popupWindow.isOutsideTouchable = true
+        popupWindow.isFocusable = true
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popupWindow.showAtLocation(_infobinding?.root, Gravity.CENTER, 0, 0)
+    }
+
+    fun clickItemPhonebook(phonebookData: PhonebookData){
+        //Log.d("MyLog", "Item Click")
+        makeInfoData(phonebookData)
+        showPopupWindow()
     }
 
     val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE)
@@ -81,10 +102,7 @@ class PhonebookFragment : Fragment() {
     fun startProcess(){
         getPhoneNumbers(sortText, searchText)
         //setSearchListener()
-        binding.recyclerviewPhonebook.adapter = PhonebookAdapter(phonebookList)
-        binding.recyclerviewPhonebook.layoutManager =
-            LinearLayoutManager(activity)
-
+        setRecyclerViewPhonebook()
     }
 
 
@@ -113,31 +131,16 @@ class PhonebookFragment : Fragment() {
             val name = cursor?.getString(1)
             var number = cursor?.getString(2)
             if (name!=null && number != null) {
+                if(number.length==11){
+                    number = number.substring(0, 3) + '-' + number.substring(3, 7) + '-' + number.substring(7)
+                }
                 val phonebookData = PhonebookData(name, number)
                 phonebookList.add(phonebookData)
             }
         }
 
 
-
-        /*phonebookList.add(PhonebookData("가나다", "010-1234-5678"))
-        phonebookList.add(PhonebookData("나다라", "010-2345-6789"))
-        phonebookList.add(PhonebookData("다라마", "010-3345-6789"))
-        phonebookList.add(PhonebookData("라마바", "010-4345-6789"))
-        phonebookList.add(PhonebookData("마바사", "010-5345-6789"))
-        phonebookList.add(PhonebookData("바사아", "010-6345-6789"))
-        phonebookList.add(PhonebookData("사아자", "010-7345-6789"))
-        phonebookList.add(PhonebookData("아자차", "010-8345-6789"))
-        phonebookList.add(PhonebookData("자차카", "010-9345-6789"))
-        phonebookList.add(PhonebookData("차카타", "010-0345-6789"))
-        */
     }
-
-
-    fun setList(){
-
-    }
-
 
 
     private fun getPhonebookData(){
