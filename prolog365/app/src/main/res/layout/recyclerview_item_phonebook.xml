@@ -25,7 +25,7 @@
                 android:layout_height="0dp"
                 android:background="@drawable/tag_phonebook"
                 android:text="가"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:textSize="20sp"
                 android:textColor = "@color/text_color"
@@ -41,22 +41,52 @@
             android:id="@+id/name_text_item_phonebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:text="name"
             android:textColor = "@color/text_color"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:layout_gravity="center"
         />
-        <TextView
-            android:id="@+id/phonenumber_text_item_phonebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="age"
-            android:textColor = "@color/text_color"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_phonecall_phonebook"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+
+                android:textSize = "20dp"
+                android:background="@drawable/phonecall_button_phonebook"
+                android:layout_marginEnd="20dp"
+                android:onClick="onPhonecallButtonClickPhonebook"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_message_phonebook"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/message_button_phonebook"
+                android:layout_marginEnd="15dp"
+                android:onClick="onMessageButtonClickPhonebook"
+                app:layout_constraintTop_toTopOf="@id/button_phonecall_phonebook"
+                app:layout_constraintBottom_toBottomOf="@id/button_phonecall_phonebook"
+                app:layout_constraintEnd_toStartOf="@id/button_phonecall_phonebook"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
     </LinearLayout>
 
 

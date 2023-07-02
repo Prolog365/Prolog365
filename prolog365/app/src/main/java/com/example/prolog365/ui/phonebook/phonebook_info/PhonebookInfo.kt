@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prolog365.databinding.InfoPhonebookBinding
 import com.example.prolog365.db.ScheduleDB
 import com.example.prolog365.db.ScheduleEntity
+import com.example.prolog365.ui.phonebook.PhonebookAdapter
 import com.example.prolog365.ui.phonebook.PhonebookData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class PhonebookInfo(){
 
         fun showPopupWindow(phonebookData: PhonebookData, context: Context){
             CoroutineScope(Dispatchers.IO).launch {
+                binding.tagTextInfoPhonebook?.text = PhonebookAdapter.getFirstLetter(phonebookData.name)
                 binding.nameTextInfoPhonebook?.text = phonebookData.name
                 binding.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
 
