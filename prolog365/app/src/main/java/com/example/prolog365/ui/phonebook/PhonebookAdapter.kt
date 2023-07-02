@@ -20,30 +20,23 @@ class PhonebookAdapter(val phonebookList : ArrayList<PhonebookData>) : RecyclerV
     }
 
     companion object{
-        fun getFirstLetter(word: String): String{
-            val unicodeValue = word[0].toInt() - 0xAC00
-            val jongseongIndex = unicodeValue % 28
-            val jungseongIndex = (unicodeValue / 28) % 21
-            val choseongIndex = (unicodeValue / 28) / 21
 
-            val choseongLetter = ('ᄀ'.code + choseongIndex).toChar()
-            val jungseongLetter = ('ᅡ'.code + jungseongIndex).toChar()
-            val jongseongLetter = when (jongseongIndex) {
-                0 -> ""
-                else -> ('ᆧ'.code + jongseongIndex).toChar().toString()
-            }
-
-            return "$choseongLetter$jungseongLetter$jongseongLetter"
-        }
     }
 
     override fun onBindViewHolder(holder: PhonebookAdapter.Holder, position: Int) {
         holder.itemView.setOnClickListener{
             itemClick?.onClick(it, position)
         }
-        holder.tag.text = getFirstLetter(phonebookList[position].name)
+        holder.tag.text = PhonebookInteraction.getFirstLetter(phonebookList[position].name)
         holder.name.text = phonebookList[position].name
         //holder.phonenumber.text = phonebookList[position].phonenumber
+        holder.messageBtn.setOnClickListener{
+            PhonebookInteraction.sendMessage(phonebookList[position].phonenumber, holder.itemView.context)
+        }
+        holder.callBtn.setOnClickListener{
+            PhonebookInteraction.sendCall(phonebookList[position].phonenumber, holder.itemView.context)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -55,6 +48,8 @@ class PhonebookAdapter(val phonebookList : ArrayList<PhonebookData>) : RecyclerV
     inner class Holder(val binding: RecyclerviewItemPhonebookBinding) : RecyclerView.ViewHolder(binding.root){
         val tag = binding.tagTextItemPhonebook
         val name = binding.nameTextItemPhonebook
+        val messageBtn = binding.buttonMessagePhonebook
+        val callBtn = binding.buttonPhonecallPhonebook
         //val phonenumber = binding.phonenumberTextItemPhonebook
 
     }

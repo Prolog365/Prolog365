@@ -7,6 +7,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" tools:remove="android:maxSdkVersion"></uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS" tools:remove="android:maxSdkVersion"></uses-permission>
     <uses-permission android:name="android.permission.CALL_PHONE" tools:remove="android:maxSdkVersion"></uses-permission>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"></uses-permission>
