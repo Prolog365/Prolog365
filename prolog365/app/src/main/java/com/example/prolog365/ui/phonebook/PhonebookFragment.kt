@@ -66,8 +66,8 @@ class PhonebookFragment : Fragment() {
 
     fun clickItemPhonebook(phonebookData: PhonebookData){
         //Log.d("MyLog", "Item Click")
-        activity?.let { PhonebookInfo.makeInfoData(phonebookData, it) }
-        PhonebookInfo.showPopupWindow()
+        activity?.let { PhonebookInfo.showPopupWindow(phonebookData, it) }
+        //PhonebookInfo.showPopupWindow()
     }
 
     val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE)

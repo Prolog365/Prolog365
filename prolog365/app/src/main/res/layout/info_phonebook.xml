@@ -22,12 +22,29 @@
         android:background="@drawable/info_phonebook_box"
         >
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/default_profile_image" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tag_text_info_phonebook"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:background="@drawable/tag_phonebook"
+                android:text="가"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor = "@color/text_color"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +60,7 @@
                 android:layout_marginTop="15dp"
                 android:text="가나다"
                 android:textSize="26dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/text_color"/>
 
             <TextView
                 android:id="@+id/phonenumber_text_info_phonebook"
@@ -52,7 +69,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:text="010-1234-5678"
-                android:textColor="@color/black"/>
+                android:textColor = "@color/text_color"
+                />
         </LinearLayout>
 
     </LinearLayout>
@@ -61,19 +79,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="일정 리스트"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor = "@color/text_color"
         android:background="@drawable/info_phonebook_box"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/schedule_recyclerview_info_phonebook"
             android:layout_width="300dp"
-            android:layout_height="450dp"
-            android:background="@color/white"
+            android:layout_height="400dp"
+            android:background="@drawable/info_phonebook_box"
             android:layout_margin="20dp" />
 
 

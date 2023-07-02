@@ -10,16 +10,32 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:background="#E3D2DD"
+        android:background="@color/grey2"
         android:orientation="horizontal">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/default_profile_image" />
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tag_text_item_phonebook"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:background="@drawable/tag_phonebook"
+                android:text="가"
+                android:layout_marginStart="30dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor = "@color/text_color"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/name_text_item_phonebook"
@@ -27,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="name"
+            android:textColor = "@color/text_color"
             android:textSize="20sp"
             android:layout_gravity="center"
         />
@@ -35,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="age"
+            android:textColor = "@color/text_color"
             android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_marginStart="30dp"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF4081" /> <!-- Circle color -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" /> <!-- Stroke color and width -->
+    <corners android:radius="100dp" /> <!-- Radius of the circle -->
+    <size
+        android:width="200dp"
+        android:height="200dp" /> <!-- Size of the circle -->
+</shape>

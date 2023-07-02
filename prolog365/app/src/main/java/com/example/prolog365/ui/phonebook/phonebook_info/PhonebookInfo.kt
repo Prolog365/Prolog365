@@ -21,36 +21,30 @@ class PhonebookInfo(){
         var _infobinding: InfoPhonebookBinding? = null
         private val binding get() = _infobinding!!
 
-        fun makeInfoData(phonebookData: PhonebookData, context: Context){
-            _infobinding?.nameTextInfoPhonebook?.text = phonebookData.name
-            _infobinding?.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
-            setRecyclerViewInfoPhonebook(phonebookData, context)
-        }
-
-        fun setRecyclerViewInfoPhonebook(phonebookData: PhonebookData, context : Context){
+        fun showPopupWindow(phonebookData: PhonebookData, context: Context){
             CoroutineScope(Dispatchers.IO).launch {
+                binding.nameTextInfoPhonebook?.text = phonebookData.name
+                binding.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
+
                 val scheduleList = ScheduleDB.getScheduleWithPhonenumber(phonebookData.phonenumber)
                 val adapter = PhonebookInfoAdapter(scheduleList as ArrayList<ScheduleEntity>)
-                binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
-                binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
 
                 adapter.itemClick = object : PhonebookInfoAdapter.ItemClick{
                     override fun onClick(view: View, position: Int){
                         // Add onclick event
                     }
                 }
+
+                binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
+                binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
+
+
             }
-
-        }
-
-
-        fun showPopupWindow(){
-
-            val popupWindow = PopupWindow(_infobinding?.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val popupWindow = PopupWindow(binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             popupWindow.isOutsideTouchable = true
             popupWindow.isFocusable = true
             popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            popupWindow.showAtLocation(_infobinding?.root, Gravity.CENTER, 0, 0)
+            popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
         }
 
     }
