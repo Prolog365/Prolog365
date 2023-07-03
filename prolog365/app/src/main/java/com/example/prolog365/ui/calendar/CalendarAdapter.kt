@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.prolog365.databinding.RecyclerviewItemCalendarBinding
 
 class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Adapter<CalendarAdapter.Holder> () {
@@ -16,19 +17,25 @@ class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return eventList.count()
+        return eventList.size
     }
 
-    override fun onBindViewHolder(holder: CalendarAdapter.Holder, position: Int) {
-        holder.title.text = eventList[position].title
-        holder.description.text = eventList[position].description
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val event = eventList[position]
+        holder.bind(event)
     }
 
-    inner class Holder(val binding: RecyclerviewItemCalendarBinding) : RecyclerView.ViewHolder(binding.root) {
-        val image = binding.calendarEventImage
-        val title = binding.calendarEventTitle
-        val description = binding.calendarEventDescription
+    inner class Holder(private val binding: RecyclerviewItemCalendarBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
+        fun bind(event: CalendarData) {
+            binding.calendarEventTitle.text = event.title
+            binding.calendarEventPhoneNum.text = event.phoneNum
+
+            Glide.with(binding.root)
+                .load(event.image)
+                .into(binding.calendarEventImage)
+        }
     }
 
 
