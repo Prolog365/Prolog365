@@ -27,6 +27,8 @@ class PhonebookInfoAdapter(val scheduleList : ArrayList<ScheduleEntity>) : Recyc
         }
         holder.name.text = scheduleList[position].scheduleName
         holder.date.text = scheduleList[position].date
+
+
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +40,6 @@ class PhonebookInfoAdapter(val scheduleList : ArrayList<ScheduleEntity>) : Recyc
     inner class Holder(val binding: RecyclerviewItemInfoPhonebookBinding) : RecyclerView.ViewHolder(binding.root){
         val name = binding.nameTextItemInfoPhonebook
         val date = binding.dateTextItemInfoPhonebook
-
     }
 
 }
