@@ -26,8 +26,9 @@ class PhonebookInfoAdapter(val scheduleList : ArrayList<ScheduleEntity>) : Recyc
             itemClick?.onClick(it, position)
         }
         holder.name.text = scheduleList[position].scheduleName
-        holder.date.text = scheduleList[position].date
 
+
+        holder.date.text = scheduleList[position].date
 
     }
 

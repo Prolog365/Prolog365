@@ -117,13 +117,13 @@ class PhonebookFragment : Fragment() {
         ScheduleDB.initDB(this)
         // DB TEST
         CoroutineScope(Dispatchers.IO).launch{
-            ScheduleDB.clearDB()
+            /*ScheduleDB.clearDB()
             ScheduleDB.insertDB("Schedule1", LocalDate.now(), "010-1234-5678", "drawable/asdf.png")
             ScheduleDB.insertDB("Schedule2", LocalDate.now(), "010-2345-6789", "drawable/bcde.png")
             ScheduleDB.insertDB("Schedule3", LocalDate.now(), "010-1234-5678", "drawable/bcde.png")
             ScheduleDB.insertDB("Schedule4", LocalDate.now(), "010-1234-5678", "drawable/bcde.png")
             ScheduleDB.insertDB("Schedule5", LocalDate.now(), "010-3456-7890", "drawable/bcde.png")
-            ScheduleDB.logDB()
+            ScheduleDB.logDB()*/
         }
     }
 

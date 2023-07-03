@@ -36,7 +36,8 @@ class PhonebookInfo(){
                 }
 
 
-                val scheduleList = ScheduleDB.getScheduleWithPhonenumber(phonebookData.phonenumber)
+                var scheduleList = ScheduleDB.getScheduleWithPhonenumber(phonebookData.phonenumber)
+
                 val adapter = PhonebookInfoAdapter(scheduleList as ArrayList<ScheduleEntity>)
 
                 adapter.itemClick = object : PhonebookInfoAdapter.ItemClick{

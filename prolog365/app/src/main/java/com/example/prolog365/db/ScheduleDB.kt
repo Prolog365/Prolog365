@@ -47,6 +47,9 @@ interface ScheduleDao{
     @Query("SELECT * FROM table_schedule WHERE scheduleName = :scheduleName")
     fun getScheduleWithName(scheduleName: String) : List<ScheduleEntity>
 
+    @Query("SELECT * FROM table_schedule WHERE date = :date")
+    fun getScheduleWithDate(date: String) : List<ScheduleEntity>
+
     @Query("SELECT * FROM table_schedule WHERE phoneNumber = :phonenumber")
     fun getScheduleWithPhonenumber(phonenumber: String) : List<ScheduleEntity>
 }
@@ -70,7 +73,9 @@ class ScheduleDB {
         }
 
         suspend fun insertDB(_scheduleName: String, _date: LocalDate, _phoneNumber: String, _picture: String){
-            val entity = ScheduleEntity(scheduleName = _scheduleName, date = _date.toString(), phoneNumber = _phoneNumber, picture = _picture)
+
+            var format_phonenumber = PhonebookDB.formatPhonenumber(_phoneNumber)
+            val entity = ScheduleEntity(scheduleName = _scheduleName, date = _date.toString(), phoneNumber = format_phonenumber, picture = _picture)
             scheduleDatabase?.scheduleDao()?.insert(entity)
         }
 
@@ -84,6 +89,14 @@ class ScheduleDB {
 
         suspend fun getScheduleWithPhonenumber(phonenumber: String): List<ScheduleEntity>? {
             return scheduleDatabase?.scheduleDao()?.getScheduleWithPhonenumber(phonenumber)
+        }
+
+        suspend fun getScheduleWithDate(date: LocalDate): List<ScheduleEntity>? {
+            return scheduleDatabase?.scheduleDao()?.getScheduleWithDate(date.toString())
+        }
+
+        suspend fun getEverySchedule(): List<ScheduleEntity>?{
+            return scheduleDatabase?.scheduleDao()?.getAll()
         }
 
         suspend fun clearDB(){

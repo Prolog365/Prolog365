@@ -8,6 +8,14 @@ import com.example.prolog365.ui.phonebook.PhonebookData
 class PhonebookDB {
     companion object {
         val phonebookList = ArrayList<PhonebookData>()
+
+        fun formatPhonenumber(phonenumber: String): String{
+            var number = phonenumber
+            if(number.length==11){
+                number = number.substring(0, 3) + '-' + number.substring(3, 7) + '-' + number.substring(7)
+            }
+            return number
+        }
         fun findPhonebookDataByName(_name: String): PhonebookData?{
             for(phonebookData in phonebookList){
                 if(phonebookData.name==_name){
@@ -51,9 +59,7 @@ class PhonebookDB {
                 val name = cursor?.getString(1)
                 var number = cursor?.getString(2)
                 if (name!=null && number != null) {
-                    if(number.length==11){
-                        number = number.substring(0, 3) + '-' + number.substring(3, 7) + '-' + number.substring(7)
-                    }
+                    number = formatPhonenumber(number)
                     val phonebookData = PhonebookData(name, number)
                     phonebookList.add(phonebookData)
                 }
