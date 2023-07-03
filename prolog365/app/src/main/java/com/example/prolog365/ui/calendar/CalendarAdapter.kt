@@ -16,18 +16,18 @@ class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return eventList.count()
+        return eventList.size
     }
 
     override fun onBindViewHolder(holder: CalendarAdapter.Holder, position: Int) {
-        holder.title.text = eventList[position].title
-        holder.description.text = eventList[position].description
+        val event = eventList[position]
+
     }
 
     inner class Holder(val binding: RecyclerviewItemCalendarBinding) : RecyclerView.ViewHolder(binding.root) {
         val image = binding.calendarEventImage
         val title = binding.calendarEventTitle
-        val description = binding.calendarEventDescription
+        val phoneNum = binding.calendarEventPhoneNum
 
     }
 

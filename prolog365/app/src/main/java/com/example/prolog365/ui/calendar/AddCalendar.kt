@@ -105,12 +105,12 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         val phoneNumber = phoneNumberEditText.text.toString().trim()
 
         if (eventName.isEmpty() || phoneNumber.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
+            showToast("Please fill in all the fields")
             return
         }
         val selectedDate = getSelectedDate()
         if (selectedDate == null) {
-            Toast.makeText(requireContext(), "Please select a date", Toast.LENGTH_SHORT).show()
+            showToast("Please select a date")
             return
         }
 
@@ -174,8 +174,7 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         if (requestCode == IMAGE_PICK_REQUEST_CODE) {
             data?.data?.let { uri ->
                 imageUri = uri
-                Toast.makeText(requireContext(), "Image selected: $imageUri", Toast.LENGTH_SHORT)
-                    .show()
+                showToast("Image selected: $imageUri")
             }
         }
     }
