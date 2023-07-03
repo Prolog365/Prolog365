@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class PhonebookInfo(){
     companion object{
         var _infobinding: InfoPhonebookBinding? = null
-        private val binding get() = _infobinding!!
+        val binding get() = _infobinding!!
 
         fun showPopupWindow(phonebookData: PhonebookData, context: Context){
             CoroutineScope(Dispatchers.IO).launch {

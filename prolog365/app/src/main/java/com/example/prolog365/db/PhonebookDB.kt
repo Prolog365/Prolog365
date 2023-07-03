@@ -10,7 +10,7 @@ class PhonebookDB {
         val phonebookList = ArrayList<PhonebookData>()
 
         fun formatPhonenumber(phonenumber: String): String{
-            var number = phonenumber
+            var number = phonenumber.trim()
             if(number.length==11){
                 number = number.substring(0, 3) + '-' + number.substring(3, 7) + '-' + number.substring(7)
             }

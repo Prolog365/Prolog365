@@ -16,10 +16,12 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prolog365.R
+import com.example.prolog365.databinding.AddPhonebookBinding
 import com.example.prolog365.databinding.FragmentPhonebookBinding
 import com.example.prolog365.databinding.InfoPhonebookBinding
 import com.example.prolog365.db.PhonebookDB
 import com.example.prolog365.db.ScheduleDB
+import com.example.prolog365.ui.phonebook.phonebook_add.PhonebookAdd
 import com.example.prolog365.ui.phonebook.phonebook_info.PhonebookInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +47,7 @@ class PhonebookFragment : Fragment() {
 
         setHasOptionsMenu(true)
         _binding = FragmentPhonebookBinding.inflate(inflater, container, false)
+        PhonebookAdd._addbinding = AddPhonebookBinding.inflate(inflater, container, false)
         PhonebookInfo._infobinding = InfoPhonebookBinding.inflate(inflater, container, false)
         val root: View = binding.root
         checkPermission()
@@ -70,8 +73,13 @@ class PhonebookFragment : Fragment() {
         }
     }
 
+    public fun reloadPhonebookList(){
+        PhonebookDB.getPhoneNumbers(this, sortText, searchText)
+        setRecyclerViewPhonebook()
+    }
     fun addPhonebook(){
         Log.d("MyLog", "Add Phonebook")
+        activity?.let { PhonebookAdd.showPopupWindow(it, this) }
     }
 
     fun setRecyclerViewPhonebook(){
@@ -98,7 +106,7 @@ class PhonebookFragment : Fragment() {
         //PhonebookInfo.showPopupWindow()
     }
 
-    val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
+    val permissions = arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
     var searchText = ""
     var sortText = "asc"
 

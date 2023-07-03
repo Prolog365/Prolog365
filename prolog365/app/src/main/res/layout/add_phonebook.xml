@@ -11,87 +11,74 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="20dp"
         android:background="@drawable/info_phonebook_box">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tag_text_info_phonebook"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:background="@drawable/tag_phonebook"
-                android:text="가"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/text_color"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                >
 
-                <EditText
-                    android:id="@+id/name_input_info_phonebook"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:layout_marginTop="18dp"
-                    android:hint="Name"
-                    android:textSize="18dp"
+                    android:layout_height="wrap_content"
+                    android:text="이름  :"
                     android:textColor="@color/text_color"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    ></TextView>
 
                 <EditText
-                    android:id="@+id/phonenumber_input_info_phonebook"
+                    android:id="@+id/name_text_add_phonebook"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:hint="Phone Number"
-                    android:textSize="18dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/text_color"
-                    app:layout_constraintTop_toBottomOf="@id/name_input_info_phonebook"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+
+                    ></EditText>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호  :"
+                    android:textColor="@color/text_color"
+                    ></TextView>
+
+                <EditText
+                    android:id="@+id/phonenumber_text_add_phonebook"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/text_color"
+
+                    ></EditText>
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/submit_button_info_phonebook"
-                android:layout_width="wrap_content"
+                android:id="@+id/submit_button_add_phonebook"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit"
                 android:textColor="@color/text_color"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
