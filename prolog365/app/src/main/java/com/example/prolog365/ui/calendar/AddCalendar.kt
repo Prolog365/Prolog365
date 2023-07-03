@@ -20,8 +20,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.prolog365.R
+import com.example.prolog365.db.PhonebookDB
+import com.example.prolog365.db.ScheduleDB
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Locale
 
 class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -63,8 +69,8 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 imageUri = uri
-                Toast.makeText(requireContext(), "Image selected: $imageUri", Toast.LENGTH_SHORT)
-                    .show()
+                val imagePickButton: Button = requireView().findViewById(R.id.add_calendar_btn_picture)
+                imagePickButton.text = "$imageUri"
             }
         }
 
@@ -100,7 +106,27 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
             Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
+        val selectedDate = getSelectedDate()
+        if (selectedDate == null) {
+            Toast.makeText(requireContext(), "Please select a date", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        insertSchedule(eventName,phoneNumber,selectedDate,imageUri.toString())
+        Toast.makeText(requireContext(), "Data submitted successfully", Toast.LENGTH_SHORT).show()
     }
+
+    private fun getSelectedDate(): LocalDate? {
+        val pickDateButton: Button = requireView().findViewById(R.id.add_calendar_btn_date)
+        val selectedDateText = pickDateButton.text.toString()
+
+        return try {
+            LocalDate.parse(selectedDateText)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
@@ -123,6 +149,12 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
 
         val pickDateButton: Button = requireView().findViewById(R.id.add_calendar_btn_date)
         pickDateButton.text = formattedDate
+    }
+    private fun insertSchedule(scheduleName: String, phoneNumber: String, date: LocalDate, picture: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            ScheduleDB.insertDB(scheduleName, date, phoneNumber, picture)
+            ScheduleDB.logDB()
+        }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
