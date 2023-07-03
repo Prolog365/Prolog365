@@ -3,7 +3,11 @@ package com.example.prolog365.ui.phonebook
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentPhonebookBinding
 import com.example.prolog365.databinding.InfoPhonebookBinding
 import com.example.prolog365.db.PhonebookDB
@@ -38,12 +43,35 @@ class PhonebookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        setHasOptionsMenu(true)
         _binding = FragmentPhonebookBinding.inflate(inflater, container, false)
         PhonebookInfo._infobinding = InfoPhonebookBinding.inflate(inflater, container, false)
         val root: View = binding.root
         checkPermission()
         setRecyclerViewPhonebook()
         return root
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.add_phonebook, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.add_phonebook -> {
+                // Handle the "add button" selection
+                addPhonebook()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun addPhonebook(){
+        Log.d("MyLog", "Add Phonebook")
     }
 
     fun setRecyclerViewPhonebook(){
@@ -66,11 +94,11 @@ class PhonebookFragment : Fragment() {
 
     fun clickItemPhonebook(phonebookData: PhonebookData){
         //Log.d("MyLog", "Item Click")
-        activity?.let { PhonebookInfo.makeInfoData(phonebookData, it) }
-        PhonebookInfo.showPopupWindow()
+        activity?.let { PhonebookInfo.showPopupWindow(phonebookData, it) }
+        //PhonebookInfo.showPopupWindow()
     }
 
-    val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE)
+    val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
     var searchText = ""
     var sortText = "asc"
 

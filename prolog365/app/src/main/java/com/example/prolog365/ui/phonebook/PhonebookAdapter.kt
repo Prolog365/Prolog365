@@ -19,12 +19,24 @@ class PhonebookAdapter(val phonebookList : ArrayList<PhonebookData>) : RecyclerV
         return Holder(binding)
     }
 
+    companion object{
+
+    }
+
     override fun onBindViewHolder(holder: PhonebookAdapter.Holder, position: Int) {
         holder.itemView.setOnClickListener{
             itemClick?.onClick(it, position)
         }
+        holder.tag.text = PhonebookInteraction.getFirstLetter(phonebookList[position].name)
         holder.name.text = phonebookList[position].name
-        holder.phonenumber.text = phonebookList[position].phonenumber
+        //holder.phonenumber.text = phonebookList[position].phonenumber
+        holder.messageBtn.setOnClickListener{
+            PhonebookInteraction.sendMessage(phonebookList[position].phonenumber, holder.itemView.context)
+        }
+        holder.callBtn.setOnClickListener{
+            PhonebookInteraction.sendCall(phonebookList[position].phonenumber, holder.itemView.context)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -34,8 +46,11 @@ class PhonebookAdapter(val phonebookList : ArrayList<PhonebookData>) : RecyclerV
 
 
     inner class Holder(val binding: RecyclerviewItemPhonebookBinding) : RecyclerView.ViewHolder(binding.root){
+        val tag = binding.tagTextItemPhonebook
         val name = binding.nameTextItemPhonebook
-        val phonenumber = binding.phonenumberTextItemPhonebook
+        val messageBtn = binding.buttonMessagePhonebook
+        val callBtn = binding.buttonPhonecallPhonebook
+        //val phonenumber = binding.phonenumberTextItemPhonebook
 
     }
 
