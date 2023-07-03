@@ -28,6 +28,13 @@ class PhonebookInfo(){
                 binding.tagTextInfoPhonebook?.text = PhonebookInteraction.getFirstLetter(phonebookData.name)
                 binding.nameTextInfoPhonebook?.text = phonebookData.name
                 binding.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
+                binding.buttonMessageInfoPhonebook.setOnClickListener{
+                    PhonebookInteraction.sendMessage(phonebookData.phonenumber, context)
+                }
+                binding.buttonPhonecallInfoPhonebook.setOnClickListener{
+                    PhonebookInteraction.sendCall(phonebookData.phonenumber, context)
+                }
+
 
                 val scheduleList = ScheduleDB.getScheduleWithPhonenumber(phonebookData.phonenumber)
                 val adapter = PhonebookInfoAdapter(scheduleList as ArrayList<ScheduleEntity>)
