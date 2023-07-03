@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         android:text="일정 추가"
         android:textSize="30dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"

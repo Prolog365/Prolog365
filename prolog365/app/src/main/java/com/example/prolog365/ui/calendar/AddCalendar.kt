@@ -2,12 +2,14 @@ package com.example.prolog365.ui.calendar
 
 import android.Manifest
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -113,7 +115,6 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         }
 
         insertSchedule(eventName,phoneNumber,selectedDate,imageUri.toString())
-        Toast.makeText(requireContext(), "Data submitted successfully", Toast.LENGTH_SHORT).show()
     }
 
     private fun getSelectedDate(): LocalDate? {
@@ -126,7 +127,6 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
             null
         }
     }
-
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
@@ -152,8 +152,20 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
     }
     private fun insertSchedule(scheduleName: String, phoneNumber: String, date: LocalDate, picture: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            ScheduleDB.insertDB(scheduleName, date, phoneNumber, picture)
-            ScheduleDB.logDB()
+            try {
+                ScheduleDB.insertDB(scheduleName, date, phoneNumber, picture)
+                ScheduleDB.logDB()
+                showToast("Data submitted successfully")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error inserting schedule", e)
+                showToast("Failed to submit data")
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
