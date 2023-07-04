@@ -40,7 +40,9 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
 
     fun clickItemGallery(galleryData: GalleryData){
         Log.d("MyLog", "Click!: " + galleryData.imageSource)
-        GalleryShow.showPopupWindow(galleryData.imageSource.toUri())
+        if (context != null) {
+            GalleryShow.showPopupWindow(galleryData.imageSource.toUri(), context)
+        }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {

@@ -95,10 +95,6 @@ class GalleryFragment : Fragment() {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
-    fun clickItemGallery(galleryData: GalleryData){
-        Log.d("MyLog", galleryData.imageSource)
-        GalleryShow.showPopupWindow(galleryData.imageSource.toUri())
-    }
 
     fun setGridViewGallery(){
         CoroutineScope(Dispatchers.IO).launch{

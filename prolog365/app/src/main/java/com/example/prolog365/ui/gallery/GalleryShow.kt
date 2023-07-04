@@ -7,6 +7,7 @@ import android.net.Uri
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import com.bumptech.glide.Glide
 import com.example.prolog365.databinding.ShowGalleryBinding
 import com.example.prolog365.ui.phonebook.PhonebookFragment
 import com.example.prolog365.ui.phonebook.phonebook_add.PhonebookAdd
@@ -18,8 +19,9 @@ class GalleryShow {
 
         private val binding get() = _binding
 
-        fun showPopupWindow(imageUri: Uri){
-            binding?.imageViewShowGallery?.setImageURI(imageUri)
+        fun showPopupWindow(imageUri: Uri, context: Context){
+            binding?.imageViewShowGallery?.let { Glide.with(context).load(imageUri).into(it)}
+            //binding?.imageViewShowGallery?.setImageURI(imageUri)
             popupWindow = PopupWindow(binding?.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             popupWindow!!.isOutsideTouchable = true
             popupWindow!!.isFocusable = true
