@@ -3,6 +3,8 @@ package com.example.prolog365.ui.phonebook.phonebook_info
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -48,12 +50,16 @@ class PhonebookInfo(){
 
                 binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
                 binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
+                val mHandler = Handler(Looper.getMainLooper())
+                mHandler.post(Runnable(){
+                    val popupWindow = PopupWindow(binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    popupWindow.isOutsideTouchable = true
+                    popupWindow.isFocusable = true
+                    popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+                })
             }
-            val popupWindow = PopupWindow(binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-            popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+
         }
 
     }
