@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,9 +15,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentGalleryBinding
+import com.example.prolog365.databinding.ShowGalleryBinding
 import com.example.prolog365.db.ScheduleDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +41,7 @@ class GalleryFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        GalleryShow._binding = ShowGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         if(binding.gridViewGallery.adapter==null){
@@ -68,7 +72,6 @@ class GalleryFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_CODE_GALLERY)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -93,7 +96,8 @@ class GalleryFragment : Fragment() {
         }
     }
     fun clickItemGallery(galleryData: GalleryData){
-
+        Log.d("MyLog", galleryData.imageSource)
+        GalleryShow.showPopupWindow(galleryData.imageSource.toUri())
     }
 
     fun setGridViewGallery(){

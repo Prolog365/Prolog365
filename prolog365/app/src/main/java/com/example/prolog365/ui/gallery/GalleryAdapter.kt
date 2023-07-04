@@ -35,11 +35,7 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
         return position.toLong()
     }
 
-    fun View.setMarginExtensionFunction(left: Int, top: Int, right: Int, bottom: Int) {
-        val params = layoutParams as ViewGroup.MarginLayoutParams
-        params.setMargins(left, top, right, bottom)
-        layoutParams = params
-    }
+
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val imageView: ImageView
@@ -50,7 +46,6 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
             val layoutParams = imageView.layoutParams as RelativeLayout.LayoutParams
             imageView.layoutParams = layoutParams
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            //imageView.setMarginExtensionFunction(20, 20, 20, 20)
         } else {
             imageView = convertView as ImageView
         }
