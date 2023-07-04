@@ -47,7 +47,7 @@ class PhonebookFragment : Fragment() {
 
         setHasOptionsMenu(true)
         _binding = FragmentPhonebookBinding.inflate(inflater, container, false)
-        PhonebookAdd._addbinding = AddPhonebookBinding.inflate(inflater, container, false)
+        PhonebookAdd._addbinding = AddPhonebookBinding.inflate(inflater, null, false)
         PhonebookInfo._infobinding = InfoPhonebookBinding.inflate(inflater, container, false)
         val root: View = binding.root
         checkPermission()

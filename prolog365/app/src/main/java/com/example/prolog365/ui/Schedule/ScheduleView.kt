@@ -1,4 +1,4 @@
-package com.example.prolog365.ui.phonebook.phonebook_info
+package com.example.prolog365.ui.Schedule
 
 import android.content.Context
 import android.graphics.Color
@@ -10,30 +10,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.prolog365.databinding.InfoPhonebookBinding
+import com.example.prolog365.databinding.ScheduleViewBinding
 import com.example.prolog365.db.ScheduleDB
 import com.example.prolog365.db.ScheduleEntity
-import com.example.prolog365.ui.phonebook.PhonebookAdapter
 import com.example.prolog365.ui.phonebook.PhonebookData
 import com.example.prolog365.ui.phonebook.PhonebookInteraction
+import com.example.prolog365.ui.phonebook.phonebook_info.PhonebookInfo
+import com.example.prolog365.ui.phonebook.phonebook_info.PhonebookInfoAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PhonebookInfo(){
+class ScheduleView{
     companion object{
-        var _infobinding: InfoPhonebookBinding? = null
-        val binding get() = _infobinding!!
+        var scheduleBinding: ScheduleViewBinding? = null
+        val binding get() = scheduleBinding!!
 
-        fun showPopupWindow(phonebookData: PhonebookData, context: Context){
+        fun showPopupWindow(scheduleData: ScheduleEntity, context: Context){
             CoroutineScope(Dispatchers.IO).launch {
-                binding.tagTextInfoPhonebook?.text = PhonebookInteraction.getFirstLetter(phonebookData.name)
-                binding.nameTextInfoPhonebook?.text = phonebookData.name
-                binding.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
-                binding.buttonMessageInfoPhonebook.setOnClickListener{
+                PhonebookInfo.binding.tagTextInfoPhonebook?.text = PhonebookInteraction.getFirstLetter(phonebookData.name)
+                PhonebookInfo.binding.nameTextInfoPhonebook?.text = phonebookData.name
+                PhonebookInfo.binding.phonenumberTextInfoPhonebook?.text = phonebookData.phonenumber
+                PhonebookInfo.binding.buttonMessageInfoPhonebook.setOnClickListener{
                     PhonebookInteraction.sendMessage(phonebookData.phonenumber, context)
                 }
-                binding.buttonPhonecallInfoPhonebook.setOnClickListener{
+                PhonebookInfo.binding.buttonPhonecallInfoPhonebook.setOnClickListener{
                     PhonebookInteraction.sendCall(phonebookData.phonenumber, context)
                 }
 
@@ -48,20 +49,20 @@ class PhonebookInfo(){
                     }
                 }
 
-                binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
-                binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
+                PhonebookInfo.binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
+                PhonebookInfo.binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
                 val mHandler = Handler(Looper.getMainLooper())
                 mHandler.post(Runnable(){
-                    val popupWindow = PopupWindow(binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    val popupWindow = PopupWindow(PhonebookInfo.binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                     popupWindow.isOutsideTouchable = true
                     popupWindow.isFocusable = true
                     popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+                    popupWindow.showAtLocation(PhonebookInfo.binding.root, Gravity.CENTER, 0, 0)
                 })
             }
 
         }
 
     }
-}
 
+}

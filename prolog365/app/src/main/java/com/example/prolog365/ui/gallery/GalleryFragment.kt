@@ -110,11 +110,13 @@ class GalleryFragment : Fragment() {
             }
             val adapter = GalleryAdapter(activity, galleryList)
 
-            adapter.itemClick = object : GalleryAdapter.ItemClick{
-                override fun onClick(view: View, position: Int){
-                    clickItemGallery(galleryList[position])
-                }
-            }
+//            adapter.itemClick = object : GalleryAdapter.ItemClick{
+//
+//                override fun onClick(view: View, position: Int){
+//                    Log.d("MyLog", "itemClick")
+//                    clickItemGallery(galleryList[position])
+//                }
+//            }
 
             val handler = Handler(Looper.getMainLooper())
             handler.post {
