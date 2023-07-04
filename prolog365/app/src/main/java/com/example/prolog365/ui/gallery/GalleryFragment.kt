@@ -111,7 +111,9 @@ class GalleryFragment : Fragment() {
             val adapter = GalleryAdapter(activity, galleryList)
 
             adapter.itemClick = object : GalleryAdapter.ItemClick{
+
                 override fun onClick(view: View, position: Int){
+                    Log.d("MyLog", "itemClick")
                     clickItemGallery(galleryList[position])
                 }
             }
