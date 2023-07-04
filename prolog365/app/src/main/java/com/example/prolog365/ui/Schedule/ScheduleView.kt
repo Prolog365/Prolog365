@@ -3,6 +3,7 @@ package com.example.prolog365.ui.Schedule
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Handler
@@ -33,29 +34,32 @@ class ScheduleView{
         val binding get() = scheduleBinding!!
 
         fun setImages(scheduleData: ScheduleEntity){
-            var bgColors = arrayListOf<Int>(
-                R.color.black,
-                R.color.black,
-                R.color.black,
-                R.color.black,
-                R.color.black
-            )
-            binding.galleryViewpagerScheduleView.adapter = GalleryPagerRecyclerAdapter(scheduleData)
-            binding.galleryViewpagerScheduleView.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            binding.galleryViewpagerScheduleView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
-                // Paging 완료되면 호출
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Log.d("ViewPagerFragment", "Page ${position+1}")
-                }
-            })
-            binding.galleryViewpagerScheduleView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Log.e("ViewPagerFragment", "Page ${position+1}")
-                }
-            })
+//            var bgColors = arrayListOf<Int>(
+//                R.color.black,
+//                R.color.black,
+//                R.color.black,
+//                R.color.black,
+//                R.color.black
+//            )
+//            binding.galleryViewpagerScheduleView.adapter = GalleryPagerRecyclerAdapter(scheduleData)
+//            binding.galleryViewpagerScheduleView.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//            binding.galleryViewpagerScheduleView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//
+//                // Paging 완료되면 호출
+//                override fun onPageSelected(position: Int) {
+//                    super.onPageSelected(position)
+//                    Log.d("ViewPagerFragment", "Page ${position+1}")
+//                }
+//            })
+//            binding.galleryViewpagerScheduleView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//                override fun onPageSelected(position: Int) {
+//                    super.onPageSelected(position)
+//                    Log.e("ViewPagerFragment", "Page ${position+1}")
+//                }
+//            })
+            val imagePath = scheduleData.picture
+            val bitmap = BitmapFactory.decodeFile(imagePath)
+            binding.imageViewScheduleView.setImageBitmap(bitmap)
         }
 
         @SuppressLint("ServiceCast")

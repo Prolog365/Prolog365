@@ -37,10 +37,10 @@
         </TextView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             >
             <LinearLayout
                 android:layout_height="match_parent"
@@ -50,9 +50,9 @@
                 >
                 <TextView
                     android:id="@+id/tag_text_schedule_view"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
                     android:background="@drawable/tag_phonebook"
                     android:text="가"
                     android:textAlignment="center"
@@ -63,10 +63,10 @@
                 <TextView
                     android:id="@+id/name_text_schedule_view"
                     android:layout_width="30dp"
-                    android:layout_height="12dp"
+                    android:layout_height="14dp"
                     android:text="가나다"
                     android:textColor="@color/text_color"
-                    android:textSize="7dp"
+                    android:textSize="8dp"
                     android:layout_gravity = "center"
                     android:textAlignment="center"
                     >
@@ -77,11 +77,11 @@
             <TextView
                 android:id="@+id/title_text_schedule_view"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:gravity="top"
 
                 android:textColor="@color/text_color"
-                android:textSize = "25dp"
+                android:textSize = "32dp"
 
                 style="@style/NoUnderlineEditText"
                 android:text="일정 제목"
@@ -95,22 +95,32 @@
 
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="450dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/info_phonebook_box"
         >
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/gallery_viewpager_schedule_view"
-            android:layout_margin="10dp"
+        <ImageView
+            android:id="@+id/image_view_schedule_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:layout_margin="20dp"
+            >
+
+
+        </ImageView>
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/gallery_viewpager_schedule_view"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
