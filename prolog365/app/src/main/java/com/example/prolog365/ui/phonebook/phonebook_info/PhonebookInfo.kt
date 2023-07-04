@@ -48,8 +48,6 @@ class PhonebookInfo(){
 
                 binding.scheduleRecyclerviewInfoPhonebook.adapter = adapter
                 binding.scheduleRecyclerviewInfoPhonebook.layoutManager = LinearLayoutManager(context)
-
-
             }
             val popupWindow = PopupWindow(binding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             popupWindow.isOutsideTouchable = true

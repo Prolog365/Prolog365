@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="external"
+        path="/Pictures/prolog365" />
+    <external-files-path
+        name="external_files"
+        path="/Pictures/prolog365" />
+    <cache-path
+        name="cache"
+        path="/Pictures/prolog365" />
+    <external-cache-path
+        name="external_cache"
+        path="/Pictures/prolog365" />
+    <files-path
+        name="files"
+        path="/Pictures/prolog365" />
+</paths>

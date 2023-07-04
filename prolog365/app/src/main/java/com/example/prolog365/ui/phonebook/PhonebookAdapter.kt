@@ -19,9 +19,6 @@ class PhonebookAdapter(val phonebookList : ArrayList<PhonebookData>) : RecyclerV
         return Holder(binding)
     }
 
-    companion object{
-
-    }
 
     override fun onBindViewHolder(holder: PhonebookAdapter.Holder, position: Int) {
         holder.itemView.setOnClickListener{

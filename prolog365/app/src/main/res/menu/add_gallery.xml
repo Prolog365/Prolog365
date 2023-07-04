@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/add_phonebook"
+        android:id="@+id/add_gallery"
         android:icon="@drawable/add_btn_menu"
-        android:title="add_phonebook"
+        android:title="add_gallery"
         app:showAsAction="ifRoom" />
 </menu>
