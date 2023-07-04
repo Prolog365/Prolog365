@@ -188,6 +188,7 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         }
 
         insertSchedule(eventName,phoneNumber,selectedDate,imageUri.toString())
+        dismiss()
     }
 
     private fun getSelectedDate(): LocalDate? {
