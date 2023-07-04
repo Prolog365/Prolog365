@@ -13,17 +13,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prolog365.databinding.InfoPhonebookBinding
 import com.example.prolog365.db.ScheduleDB
 import com.example.prolog365.db.ScheduleEntity
-import com.example.prolog365.ui.phonebook.PhonebookAdapter
+import com.example.prolog365.ui.Schedule.ScheduleView
 import com.example.prolog365.ui.phonebook.PhonebookData
 import com.example.prolog365.ui.phonebook.PhonebookInteraction
+import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PhonebookInfo(){
     companion object{
+
+
         var _infobinding: InfoPhonebookBinding? = null
         val binding get() = _infobinding!!
+
+        fun clickSchedule(scheduleEntity: ScheduleEntity){
+            ScheduleView.showPopupWindow(scheduleEntity)
+        }
 
         fun showPopupWindow(phonebookData: PhonebookData, context: Context){
             CoroutineScope(Dispatchers.IO).launch {
@@ -45,6 +52,7 @@ class PhonebookInfo(){
                 adapter.itemClick = object : PhonebookInfoAdapter.ItemClick{
                     override fun onClick(view: View, position: Int){
                         // Add onclick event
+                        clickSchedule(scheduleList[position])
                     }
                 }
 

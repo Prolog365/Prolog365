@@ -1,6 +1,7 @@
 package com.example.prolog365.ui.phonebook
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -19,14 +20,15 @@ import com.example.prolog365.R
 import com.example.prolog365.databinding.AddPhonebookBinding
 import com.example.prolog365.databinding.FragmentPhonebookBinding
 import com.example.prolog365.databinding.InfoPhonebookBinding
+import com.example.prolog365.databinding.ScheduleViewBinding
 import com.example.prolog365.db.PhonebookDB
 import com.example.prolog365.db.ScheduleDB
+import com.example.prolog365.ui.Schedule.ScheduleView
 import com.example.prolog365.ui.phonebook.phonebook_add.PhonebookAdd
 import com.example.prolog365.ui.phonebook.phonebook_info.PhonebookInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 
 class PhonebookFragment : Fragment() {
@@ -47,6 +49,7 @@ class PhonebookFragment : Fragment() {
 
         setHasOptionsMenu(true)
         _binding = FragmentPhonebookBinding.inflate(inflater, container, false)
+        ScheduleView.scheduleBinding = ScheduleViewBinding.inflate(inflater, null, false)
         PhonebookAdd._addbinding = AddPhonebookBinding.inflate(inflater, null, false)
         PhonebookInfo._infobinding = InfoPhonebookBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -106,7 +109,7 @@ class PhonebookFragment : Fragment() {
         //PhonebookInfo.showPopupWindow()
     }
 
-    val permissions = arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
+    val permissions = arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.READ_EXTERNAL_STORAGE)
     var searchText = ""
     var sortText = "asc"
 
@@ -138,6 +141,10 @@ class PhonebookFragment : Fragment() {
 
     fun startProcess(){
         PhonebookDB.getPhoneNumbers(this, sortText, searchText)
+//        takePersistableUriPermission(
+//            myURI,
+//            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+//        )
         initDatabase()
         //setSearchListener()
         setRecyclerViewPhonebook()
