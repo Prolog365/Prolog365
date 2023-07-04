@@ -1,5 +1,6 @@
 package com.example.prolog365.ui.calendar
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,9 +32,10 @@ class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Ad
         fun bind(event: CalendarData) {
             binding.calendarEventTitle.text = event.title
             binding.calendarEventPhoneNum.text = event.phoneNum
-
+            val imagePath = event.image
+            val bitmap = BitmapFactory.decodeFile(imagePath)
             Glide.with(binding.root)
-                .load(event.image)
+                .load(bitmap)
                 .into(binding.calendarEventImage)
         }
     }

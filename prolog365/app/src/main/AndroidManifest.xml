@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_CONTACTS" tools:remove="android:maxSdkVersion"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"></uses-permission>
-    <uses-permission android:name="android.permission.CAMERA" tools:remove="android:maxSdkVersion"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" tools:remove="android:maxSdkversion"></uses-permission>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:remove="android:maxSdkversion"></uses-permission>
 
     <uses-feature
         android:name="android.hardware.camera"

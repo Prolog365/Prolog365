@@ -1,21 +1,18 @@
 package com.example.prolog365.ui.Schedule
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.prolog365.R
 import com.example.prolog365.databinding.GalleryItemScheduleViewBinding
-import com.example.prolog365.databinding.RecyclerviewItemPhonebookBinding
 import com.example.prolog365.db.ScheduleEntity
+
 
 class GalleryPagerRecyclerAdapter(private val scheduleData: ScheduleEntity) : RecyclerView.Adapter<GalleryPagerRecyclerAdapter.Holder>() {
     var context: Context?=null
@@ -41,10 +38,16 @@ class GalleryPagerRecyclerAdapter(private val scheduleData: ScheduleEntity) : Re
         context = parent.context
         return Holder(binding)
     }
+
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Log.d("MyLog", scheduleData.picture)
-        //holder.imageView.setImageURI(scheduleData.picture.toUri())
-        context?.let { Glide.with(it).load(scheduleData.picture).into(holder.imageView) }
+
+        Log.d("MyLogPopup", scheduleData.picture)
+        val imagePath = scheduleData.picture
+        val bitmap = BitmapFactory.decodeFile(imagePath)
+        Log.d("MyLogPopup", imagePath + " " + bitmap.toString())
+        holder.imageView.setImageBitmap(bitmap)
+        //context?.let { Glide.with(it).load(bitmap).into(holder.imageView) }
     }
 
     override fun getItemCount(): Int = 3

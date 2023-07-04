@@ -7,12 +7,12 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.icu.util.Calendar
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,15 +27,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.prolog365.R
-import com.example.prolog365.db.PhonebookDB
 import com.example.prolog365.db.ScheduleDB
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Locale
+
 
 class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListener {
 
@@ -187,7 +189,13 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
             return
         }
 
-        insertSchedule(eventName,phoneNumber,selectedDate,imageUri.toString())
+        context?.let { cit ->
+            getImageAbsolutePath(cit, imageUri)?.let {
+                insertSchedule(eventName,phoneNumber,selectedDate,
+                    it
+                )
+            }
+        }
         dismiss()
     }
 
@@ -229,13 +237,34 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
             try {
                 ScheduleDB.insertDB(scheduleName, date, phoneNumber, picture)
                 ScheduleDB.logDB()
-                showToast("Data submitted successfully")
+                //showToast("Data submitted successfully")
             } catch (e: Exception) {
                 Log.e(TAG, "Error inserting schedule", e)
-                showToast("Failed to submit data")
+                //showToast("Failed to submit data")
             }
         }
     }
+
+    fun extractDigitCharacters(originalString: String): String {
+        val regex = Regex("[^\\d]+")
+        return originalString.replace(regex, "")
+    }
+    fun getImageAbsolutePath(context: Context, uri: Uri): String? {
+        val cacheDir = context.cacheDir
+        val fileName = uri.path?.let { extractDigitCharacters(it) } + ".png"
+        val destinationFile = File(cacheDir, fileName)
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+
+        val outputStream = FileOutputStream(destinationFile)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.close()
+
+        val filePath = destinationFile.absolutePath
+
+        return filePath
+    }
+
 
     private fun showToast(message: String) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -248,6 +277,14 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         if (requestCode == IMAGE_PICK_REQUEST_CODE) {
             data?.data?.let { uri ->
                 imageUri = uri
+                val contentResolver = context?.contentResolver
+
+                val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+// Check for the freshest data.
+                if (contentResolver != null) {
+                    contentResolver.takePersistableUriPermission(imageUri, takeFlags)
+                }
                 showToast("Image selected: $imageUri")
             }
         }

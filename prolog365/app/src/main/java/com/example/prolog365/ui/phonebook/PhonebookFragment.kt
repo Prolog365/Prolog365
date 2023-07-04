@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Messenger
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -60,13 +61,13 @@ class PhonebookFragment : Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_phonebook, menu)
+        inflater.inflate(com.example.prolog365.R.menu.add_phonebook, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.add_phonebook -> {
+            com.example.prolog365.R.id.add_phonebook -> {
                 // Handle the "add button" selection
                 addPhonebook()
                 true
@@ -124,8 +125,10 @@ class PhonebookFragment : Fragment() {
     }
 
 
+
     fun initDatabase(){
         ScheduleDB.initDB(this)
+
         // DB TEST
         CoroutineScope(Dispatchers.IO).launch{
             //ScheduleDB.clearDB()
@@ -134,7 +137,9 @@ class PhonebookFragment : Fragment() {
             ScheduleDB.insertDB("Schedule3", LocalDate.now(), "010-1234-5678", "drawable/bcde.png")
             ScheduleDB.insertDB("Schedule4", LocalDate.now(), "010-1234-5678", "drawable/bcde.png")
             ScheduleDB.insertDB("Schedule5", LocalDate.now(), "010-3456-7890", "drawable/bcde.png")
-            ScheduleDB.logDB()*/
+            */
+            ScheduleDB.logDB()
+
         }
     }
 
@@ -150,7 +155,14 @@ class PhonebookFragment : Fragment() {
         setRecyclerViewPhonebook()
     }
 
+
+
+    val READ_REQUEST_CODE = 10
+    fun getUriPermission(){
+    }
+
     private fun getPermission(){
+        getUriPermission()
         val contract = ActivityResultContracts.RequestMultiplePermissions()
         val activityResultLauncher = registerForActivityResult(contract) { resultMap ->
             val isAllGranted = permissions.all {e -> resultMap[e] == true}

@@ -1,13 +1,15 @@
 package com.example.prolog365.ui.gallery
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -24,6 +26,8 @@ import com.example.prolog365.db.ScheduleDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDate
 
 class GalleryFragment : Fragment() {
@@ -74,19 +78,47 @@ class GalleryFragment : Fragment() {
         startActivityForResult(intent, REQUEST_CODE_GALLERY)
     }
 
+
+    fun extractDigitCharacters(originalString: String): String {
+        val regex = Regex("[^\\d]+")
+        return originalString.replace(regex, "")
+    }
+    fun getImageAbsolutePath(context: Context, uri: Uri): String? {
+        val cacheDir = context.cacheDir
+        val fileName = uri.path?.let { extractDigitCharacters(it) } + ".png"
+        val destinationFile = File(cacheDir, fileName)
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+
+        val outputStream = FileOutputStream(destinationFile)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.close()
+
+        val filePath = destinationFile.absolutePath
+
+        return filePath
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null) {
             val selectedImageUri: Uri? = data.data
             // Process the selected image URI as needed
-            val picture = selectedImageUri.toString()
-            CoroutineScope(Dispatchers.IO).launch {
-                ScheduleDB.insertDB("MySchedule", LocalDate.now(), "010-1234-5678", picture)
-                ScheduleDB.logDB()
-                setGridViewGallery()
-                showToast("이미지가 추가되었습니다")
+            context?.let {
+                if (selectedImageUri != null) {
+                    val picture = getImageAbsolutePath(it, selectedImageUri)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        if (picture != null) {
+                            ScheduleDB.insertDB("MySchedule", LocalDate.now(), "010-1234-5678", picture)
+                        }
+                        ScheduleDB.logDB()
+                        setGridViewGallery()
+                        showToast("이미지가 추가되었습니다")
+                    }
+                }
             }
+
         }
     }
 

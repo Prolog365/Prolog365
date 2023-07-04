@@ -1,5 +1,7 @@
 package com.example.prolog365.ui.gallery
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -38,10 +40,17 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
         return position.toLong()
     }
 
-    fun clickItemGallery(galleryData: GalleryData){
+    fun clickItemGallery(context: Context, galleryData: GalleryData){
         Log.d("MyLog", "Click!: " + galleryData.imageSource)
         if (context != null) {
-            GalleryShow.showPopupWindow(galleryData.imageSource.toUri(), context)
+
+            GalleryShow.binding?.imageViewShowGallery?.let {
+                Glide.with(context)
+                    .load(galleryData.imageSource.toUri())
+                    .into(it)
+            }
+
+            GalleryShow.showPopupWindow(galleryData.imageSource, context)
         }
     }
 
@@ -54,7 +63,7 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
                 val idx = imageViewList.size
                 imageView = ImageView(context)
                 imageView.setOnClickListener{
-                    clickItemGallery(imageList[position])
+                    clickItemGallery(imageView.context, imageList[position])
                 }
                 imageView.layoutParams = RelativeLayout.LayoutParams(290, 290)
                 val layoutParams = imageView.layoutParams as RelativeLayout.LayoutParams
@@ -62,8 +71,10 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 Log.d("MyLog", imageList[position].imageSource)
                 //imageView.setImageURI(imageList[position].imageSource.toUri())
+                val imagePath = imageList[position].imageSource
+                val bitmap = BitmapFactory.decodeFile(imagePath)
                 Glide.with(imageView.context)
-                    .load(imageList[position].imageSource.toUri())
+                    .load(bitmap)
                     .into(imageView)
 
                 imageViewList.add(imageView)
