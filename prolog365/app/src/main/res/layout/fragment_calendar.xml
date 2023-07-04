@@ -27,8 +27,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_recycler_view"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="50dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/recyclerview_item_calendar"
