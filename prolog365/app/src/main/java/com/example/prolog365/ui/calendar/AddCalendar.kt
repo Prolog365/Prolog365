@@ -1,13 +1,17 @@
 package com.example.prolog365.ui.calendar
 
 import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.net.Uri
+import android.nfc.Tag
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +21,7 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -36,10 +41,12 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
 
     private lateinit var calendarViewModel: CalendarViewModel
     private lateinit var imageUri: Uri
+    private lateinit var phoneNumber: String
 
     companion object {
         private const val IMAGE_PICK_REQUEST_CODE = 100
         private const val STORAGE_PERMISSION_REQUEST_CODE = 101
+        private const val CONTACT_PERMISSION_REQUEST_CODE = 102
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +56,16 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
 
         calendarViewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
 
+        val pickPhoneNumberButton: Button = view.findViewById(R.id.add_calendar_btn_phone_num)
+        pickPhoneNumberButton.setOnClickListener {
+            checkContactPermission()
+        }
+
+        val pickDateButton: Button = view.findViewById(R.id.add_calendar_btn_date)
+        pickDateButton.setOnClickListener {
+            showDatePickerDialog()
+        }
+
         val pickPictureButton: Button = view.findViewById(R.id.add_calendar_btn_picture)
         pickPictureButton.setOnClickListener {
             checkStoragePermission()
@@ -57,11 +74,6 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
         val submitButton: Button = view.findViewById(R.id.add_calendar_submit_button)
         submitButton.setOnClickListener {
             submitData()
-        }
-
-        val pickDateButton: Button = view.findViewById(R.id.add_calendar_btn_date)
-        pickDateButton.setOnClickListener {
-            showDatePickerDialog()
         }
 
         return view
@@ -75,11 +87,6 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
                 imagePickButton.text = "$imageUri"
             }
         }
-
-    private fun openGallery() {
-        imagePickLauncher.launch("image/*")
-    }
-
     private fun checkStoragePermission() {
         val readPermission = Manifest.permission.READ_EXTERNAL_STORAGE
         val writePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -92,19 +99,85 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
                 arrayOf(readPermission, writePermission),
                 STORAGE_PERMISSION_REQUEST_CODE
             )
-        } else {
+        }
+        else {
             openGallery()
         }
+    }
+    private fun openGallery() {
+        imagePickLauncher.launch("image/*")
+    }
+    private fun checkContactPermission() {
+        val contactPermission = Manifest.permission.READ_CONTACTS
+
+        if(ContextCompat.checkSelfPermission(requireContext(), contactPermission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(contactPermission),
+                CONTACT_PERMISSION_REQUEST_CODE
+            )
+        }
+        else {
+            openContact()
+        }
+    }
+
+    private val contactPickLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result: ActivityResult? ->
+        if (result?.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val contactUri = data?.data
+            val phoneNumber = getPhoneNumber(contactUri)
+
+            if(phoneNumber.isNotEmpty()) {
+                setPhoneNumber(phoneNumber)
+            }
+            else {
+                showToast("Failed to retrieve phone number from contact")
+            }
+        }
+    }
+
+    private fun getPhoneNumber(contactUri: Uri?): String {
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER)
+
+        val selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?"
+        val contactId = contactUri?.lastPathSegment
+        val selectionArgs = arrayOf(contactId)
+
+        val cursor = requireContext().contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val column = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                if(column>=0){
+                    do {
+                        val phoneNumber = it.getString(column)
+                        if (phoneNumber != null && phoneNumber.isNotEmpty()) {
+                            return phoneNumber
+                        }
+                    } while (it.moveToNext())
+                }
+            }
+        }
+        return ""
+    }
+
+
+    private fun setPhoneNumber(phoneNumber: String) {
+        this.phoneNumber = phoneNumber
+        val phoneNumberButton: Button = requireView().findViewById(R.id.add_calendar_btn_phone_num)
+        phoneNumberButton.text = phoneNumber
+    }
+
+    private fun openContact(){
+        val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+        contactPickLauncher.launch(intent)
     }
 
     private fun submitData() {
         val eventNameEditText: EditText = requireView().findViewById(R.id.add_calendar_edit_name)
-        val phoneNumberEditText: EditText = requireView().findViewById(R.id.add_calendar_edit_phone)
-
         val eventName = eventNameEditText.text.toString().trim()
-        val phoneNumber = phoneNumberEditText.text.toString().trim()
 
-        if (eventName.isEmpty() || phoneNumber.isEmpty()) {
+        if (eventName.isEmpty()) {
             showToast("Please fill in all the fields")
             return
         }
@@ -178,5 +251,4 @@ class AddCalendar : BottomSheetDialogFragment(), DatePickerDialog.OnDateSetListe
             }
         }
     }
-
 }
