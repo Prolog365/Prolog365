@@ -17,12 +17,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentGalleryBinding
+import com.example.prolog365.databinding.ScheduleViewBinding
 import com.example.prolog365.databinding.ShowGalleryBinding
 import com.example.prolog365.db.ScheduleDB
+import com.example.prolog365.ui.Schedule.ScheduleView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,6 +48,7 @@ class GalleryFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         GalleryShow._binding = ShowGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        ScheduleView.scheduleBinding = ScheduleViewBinding.inflate(inflater, null, false)
 
         if(binding.gridViewGallery.adapter==null){
             setGridViewGallery()
@@ -131,12 +133,12 @@ class GalleryFragment : Fragment() {
     fun setGridViewGallery(){
         CoroutineScope(Dispatchers.IO).launch{
             val scheduleList = ScheduleDB.getEverySchedule()
-            var galleryList = ArrayList<GalleryData>()
+                /*var galleryList = ArrayList<ScheduleEntity>()
             for(schedule in scheduleList!!){
                 val galleryData = GalleryData(schedule.picture, schedule.picture)
                 galleryList.add(galleryData)
-            }
-            val adapter = GalleryAdapter(activity, galleryList)
+            }*/
+            val adapter = scheduleList?.let { GalleryAdapter(activity, it) }
 
 //            adapter.itemClick = object : GalleryAdapter.ItemClick{
 //

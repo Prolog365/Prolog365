@@ -2,24 +2,18 @@ package com.example.prolog365.ui.gallery
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.BaseAdapter
-import android.widget.Gallery
 import android.widget.ImageView
-import android.widget.ListView
 import android.widget.RelativeLayout
-import androidx.core.net.toUri
-import androidx.core.view.marginTop
-import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.prolog365.db.ScheduleEntity
+import com.example.prolog365.ui.Schedule.ScheduleView
 
-class GalleryAdapter(private val context: FragmentActivity?, private val imageList: List<GalleryData>) : BaseAdapter() {
+class GalleryAdapter(private val context: FragmentActivity?, private val imageList: List<ScheduleEntity>) : BaseAdapter() {
 
 
 //    interface ItemClick{
@@ -33,17 +27,17 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
     }
 
     override fun getItem(position: Int): Any {
-        return imageList[position]
+        return imageList.get(position)
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    fun clickItemGallery(context: Context, galleryData: GalleryData){
-        Log.d("MyLog", "Click!: " + galleryData.imageSource)
+    fun clickItemGallery(context: Context, scheduleData: ScheduleEntity){
+        //Log.d("MyLog", "Click!: " + galleryData.imageSource)
         if (context != null) {
-
+            /*
             GalleryShow.binding?.imageViewShowGallery?.let {
                 Glide.with(context)
                     .load(galleryData.imageSource.toUri())
@@ -51,6 +45,8 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
             }
 
             GalleryShow.showPopupWindow(galleryData.imageSource, context)
+             */
+            ScheduleView.showPopupWindow(scheduleData)
         }
     }
 
@@ -69,9 +65,9 @@ class GalleryAdapter(private val context: FragmentActivity?, private val imageLi
                 val layoutParams = imageView.layoutParams as RelativeLayout.LayoutParams
                 imageView.layoutParams = layoutParams
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                Log.d("MyLog", imageList[position].imageSource)
+                //Log.d("MyLog", imageList[position].imageSource)
                 //imageView.setImageURI(imageList[position].imageSource.toUri())
-                val imagePath = imageList[position].imageSource
+                val imagePath = imageList[position].picture
                 val bitmap = BitmapFactory.decodeFile(imagePath)
                 Glide.with(imageView.context)
                     .load(bitmap)

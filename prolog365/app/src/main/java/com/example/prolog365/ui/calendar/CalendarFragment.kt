@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.prolog365.R
 import com.example.prolog365.databinding.FragmentCalendarBinding
+import com.example.prolog365.databinding.ScheduleViewBinding
+import com.example.prolog365.db.PhonebookDB
 import com.example.prolog365.db.ScheduleDB
+import com.example.prolog365.db.ScheduleEntity
+import com.example.prolog365.ui.Schedule.ScheduleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,8 +36,9 @@ class CalendarFragment : Fragment() {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
         fab = root.findViewById(R.id.calender_floating_action_button)
-
-        binding.eventRecyclerView.adapter = CalendarAdapter(eventList)
+        ScheduleView.scheduleBinding = ScheduleViewBinding.inflate(inflater, null, false)
+        val adapter = CalendarAdapter(eventList)
+        binding.eventRecyclerView.adapter = adapter
         binding.eventRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val calendarView: CalendarView = root.findViewById(R.id.calendar_view)
@@ -50,6 +55,8 @@ class CalendarFragment : Fragment() {
 
         return root
     }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

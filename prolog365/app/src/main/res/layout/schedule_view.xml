@@ -35,30 +35,71 @@
 
             >
         </TextView>
-
-        <EditText
-            android:id="@+id/title_text_schedule_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/text_color"
-            android:textSize = "20dp"
-            android:background="@null"
-            style="@style/NoUnderlineEditText"
-            android:text="일정 제목"
-
-
             >
-        </EditText>
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="40dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tag_text_schedule_view"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/tag_phonebook"
+                    android:text="가"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:textColor = "@color/text_color" />
+                <TextView
+                    android:id="@+id/name_text_schedule_view"
+                    android:layout_width="30dp"
+                    android:layout_height="12dp"
+                    android:text="가나다"
+                    android:textColor="@color/text_color"
+                    android:textSize="7dp"
+                    android:layout_gravity = "center"
+                    android:textAlignment="center"
+                    >
+
+                </TextView>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/title_text_schedule_view"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="top"
+
+                android:textColor="@color/text_color"
+                android:textSize = "25dp"
+
+                style="@style/NoUnderlineEditText"
+                android:text="일정 제목"
+
+
+                >
+            </TextView>
+
+        </LinearLayout>
+
 
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="450dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/info_phonebook_box"
         >
         <androidx.viewpager2.widget.ViewPager2
@@ -75,13 +116,6 @@
 
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gallery_recyclerview_schedule_view"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:background="@drawable/info_phonebook_box"
-        android:layout_margin="20dp"
-        />
 
 
 

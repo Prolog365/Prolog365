@@ -9,8 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.prolog365.databinding.RecyclerviewItemCalendarBinding
+import com.example.prolog365.db.ScheduleEntity
+import com.example.prolog365.ui.Schedule.ScheduleView
 
 class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Adapter<CalendarAdapter.Holder> () {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarAdapter.Holder {
         val binding = RecyclerviewItemCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,10 +29,16 @@ class CalendarAdapter(val eventList : ArrayList<CalendarData>) : RecyclerView.Ad
         holder.bind(event)
     }
 
+    fun clickItemCalender(calenderData: CalendarData){
+        ScheduleView.showPopupWindow(ScheduleEntity(0, calenderData.title, calenderData.date.toString(), calenderData.phoneNum, calenderData.image))
+    }
     inner class Holder(private val binding: RecyclerviewItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: CalendarData) {
+            binding.root.setOnClickListener{
+                clickItemCalender(event)
+            }
             binding.calendarEventTitle.text = event.title
             binding.calendarEventPhoneNum.text = event.phoneNum
             val imagePath = event.image

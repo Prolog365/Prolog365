@@ -1,19 +1,26 @@
 package com.example.prolog365.ui.Schedule
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import androidx.viewpager2.widget.ViewPager2
 import com.example.prolog365.R
 import com.example.prolog365.databinding.InfoPhonebookBinding
 import com.example.prolog365.databinding.ScheduleViewBinding
+import com.example.prolog365.db.PhonebookDB
 import com.example.prolog365.db.ScheduleEntity
+import com.example.prolog365.ui.phonebook.PhonebookInteraction
 import com.example.prolog365.ui.phonebook.phonebook_info.PhonebookInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,10 +58,33 @@ class ScheduleView{
             })
         }
 
+        @SuppressLint("ServiceCast")
         fun showPopupWindow(scheduleData: ScheduleEntity){
             CoroutineScope(Dispatchers.IO).launch {
                 binding.dateTextScheduleView.text = scheduleData.date
                 binding.titleTextScheduleView.setText(scheduleData.scheduleName)
+                val phonebookData = PhonebookDB.findPhonebookDataByNumber(scheduleData.phoneNumber)
+                binding.tagTextScheduleView.text = phonebookData?.name?.let {
+                    PhonebookInteraction.getFirstLetter(
+                        it
+                    )
+                }
+                binding.nameTextScheduleView.text = phonebookData?.name
+                binding.titleTextScheduleView.setOnEditorActionListener() {_, actionId, event ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
+                    ) {
+                        val inputMethodManager = binding.root.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(binding.root.getWindowToken(), 0)
+                        binding.titleTextScheduleView.clearFocus()
+                        // on below line hiding our keyboard.
+                        true // Return true to indicate that the event has been handled
+                    } else {
+                        false // Return false to allow default behavior for other actions
+                    }
+                }
+
+
 
                 setImages(scheduleData)
 

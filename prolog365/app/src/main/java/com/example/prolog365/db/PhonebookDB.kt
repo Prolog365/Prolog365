@@ -8,7 +8,6 @@ import com.example.prolog365.ui.phonebook.PhonebookData
 class PhonebookDB {
     companion object {
         val phonebookList = ArrayList<PhonebookData>()
-
         fun formatPhonenumber(phonenumber: String): String{
             var number = phonenumber.trim()
             if(number.length==11){

@@ -22,7 +22,7 @@ data class ScheduleEntity(
     val scheduleName: String,
     val date: String,
     val phoneNumber: String,
-    val picture: String // file path of picture
+    val picture: String, // file path of picture
 )
 
 @Database(entities = [ScheduleEntity::class], version = 1)
