@@ -1,5 +1,5 @@
 # Prolog365
-## 💡 친구와 함께한 당신의 일정 - Prolog365 💡
+## 💡 당신의 일상에 log를 남기세요 - Prolog365 💡
 ### 2023 여름 몰입캠프 1주차
 
 <div style="display: flex;">
