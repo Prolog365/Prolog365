@@ -11,3 +11,17 @@
 ## 팀원
  - 박근원 <a href="https://github.com/RootPark" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/></a>
  - 안지민 <a href="https://github.com/retro3014" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/></a>
+
+## About project
+### 연락처의 친구들과 함께했던 일정을 사진과 함께 기록하세요.
+- 핸드폰 연락처와 연동되어 연락처를 확인할 수 있어요
+  - 연락처의 친구와 함께한 일정 리스트를 확인할 수 있어요
+- 일정에 추가되어있는 사진을 확인할 수 있어요
+  - 사진을 통해 일정의 날짜와 함께한 친구를 알 수 있어요
+- 캘린더를 통해 그날그날의 일정과 일정에 함께한 친구를 알 수 있어요
+  - 캘린더에서 바로 일정을 기록할 수 있어요
+ 
+
+## pre-view
+
+## Beta .apk link
