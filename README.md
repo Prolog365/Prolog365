@@ -35,16 +35,24 @@
 |--|--|--|
 |![phonebook_enter_number](https://github.com/Prolog365/Prolog365/assets/43375122/6cf0c8de-956a-4ae0-bc58-e51d8611546f)|![phonebook_text_call](https://github.com/Prolog365/Prolog365/assets/43375122/da3b21d8-bea3-41bd-8c87-7d40b4cb0d16)|![phonebook_check_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/445c5e67-c512-4e90-888b-8d0e387725ec)|
 
+- 번호 저장 : 따로 연락처를 거치지 않고 앱 내에서 바로 전화번호와 이름을 저장할 수 있습니다. 이 기능은 실시간으로 바로 연락처와 연동됩니다. 게다가 형식에 알맞은 번호만 받는답니다!
+- 문자 & 전화 : Prolog에서 바로 연락처에 있는 사람에게 문자를 보내고 전화를 걸 수 있습니다.
+- 일정 확인 : 연락처를 통해서 바로 함께하고 있는 모든 일정을 확인할 수 있습니다. 게다가 일정 사진도 바로 볼 수 있답니다!
+
+
 ### Tab2 : 갤러리
 |일정 사진 확인|
 |--|
 |![gallery_checkImage](https://github.com/Prolog365/Prolog365/assets/43375122/9b6d7e2f-6186-487f-b57b-5bdc92bfe336)|
+
+- 일정 사진 확인 : 캘린더(Tab3)에서 추가한 일정 사진을 모두 모아볼 수 있습니다. 사진을 누르면 세부 정보를 확인할 수 있습니다.
 
 ### Tab3 : 캘린더
 |캘린더 일정 추가|
 |--|
 |![calendar_inter_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/86e45e3b-8435-4ff1-b626-a0f3affe8384)|
 
+- 캘린더 일정 추가 : 캘린더를 통해 해당 날짜의 일정을 모아볼 수 있습니다. 그리고 오른쪽 하단의 추가 버튼을 이용해서 일정을 추가할 수 있습니다!
 
 
 ## Beta .apk link
