@@ -30,10 +30,15 @@
 ![splash_gif](https://github.com/Prolog365/Prolog365/assets/43375122/8332da34-51f7-4881-8a5a-70739753bec3)
 
 ### Tab1 : 연락처
+![phonebook_enter_number](https://github.com/Prolog365/Prolog365/assets/43375122/6cf0c8de-956a-4ae0-bc58-e51d8611546f)
+![phonebook_text_call](https://github.com/Prolog365/Prolog365/assets/43375122/da3b21d8-bea3-41bd-8c87-7d40b4cb0d16)
+![phonebook_check_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/445c5e67-c512-4e90-888b-8d0e387725ec)
 
 ### Tab2 : 갤러리
+![gallery_checkImage](https://github.com/Prolog365/Prolog365/assets/43375122/9b6d7e2f-6186-487f-b57b-5bdc92bfe336)
 
 ### Tab3 : 캘린더
+![calendar_inter_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/86e45e3b-8435-4ff1-b626-a0f3affe8384)
 
 
 
