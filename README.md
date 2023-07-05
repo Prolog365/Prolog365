@@ -33,7 +33,7 @@
 ### Tab1 : 연락처
 |번호 저장|문자&전화|일정 확인|
 |--|--|--|
-|![phonebook_enter_number](https://github.com/Prolog365/Prolog365/assets/43375122/6cf0c8de-956a-4ae0-bc58-e51d8611546f)|![phonebook_text_call](https://github.com/Prolog365/Prolog365/assets/43375122/da3b21d8-bea3-41bd-8c87-7d40b4cb0d16)|![phonebook_check_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/445c5e67-c512-4e90-888b-8d0e387725ec)|
+|![phonebook_enter_number](https://github.com/Prolog365/Prolog365/assets/43375122/6cf0c8de-956a-4ae0-bc58-e51d8611546f)|![phonebook_text_call](https://github.com/Prolog365/Prolog365/assets/43375122/da3b21d8-bea3-41bd-8c87-7d40b4cb0d16)|![phonebook_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/d8a0f643-da7b-4508-a4a5-325531cf49d4)|
 
 - 번호 저장 : 따로 연락처를 거치지 않고 앱 내에서 바로 전화번호와 이름을 저장할 수 있습니다. 이 기능은 실시간으로 바로 연락처와 연동됩니다. 게다가 형식에 알맞은 번호만 받는답니다!
 - 문자 & 전화 : Prolog에서 바로 연락처에 있는 사람에게 문자를 보내고 전화를 걸 수 있습니다.
@@ -43,7 +43,7 @@
 ### Tab2 : 갤러리
 |일정 사진 확인|
 |--|
-|![gallery_checkImage](https://github.com/Prolog365/Prolog365/assets/43375122/9b6d7e2f-6186-487f-b57b-5bdc92bfe336)|
+|![gallery_show](https://github.com/Prolog365/Prolog365/assets/43375122/079e1cc6-2904-40ff-8bde-8ec7c53b6998)|
 
 - 일정 사진 확인 : 캘린더(Tab3)에서 추가한 일정 사진을 모두 모아볼 수 있습니다. 사진을 누르면 세부 정보를 확인할 수 있습니다.
 
