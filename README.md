@@ -45,12 +45,12 @@
 |--|
 |![gallery_show](https://github.com/Prolog365/Prolog365/assets/43375122/079e1cc6-2904-40ff-8bde-8ec7c53b6998)|
 
-- 일정 사진 확인 : 캘린더(Tab3)에서 추가한 일정 사진을 모두 모아볼 수 있습니다. 사진을 누르면 세부 정보를 확인할 수 있습니다.
+- 일정 사진 확인 : 캘린더(Tab3)에서 추가한 일정 사진을 모두 모아볼 수 있습니다. 사진을 누르면 세부 정보(함께한 친구의 번호, 이름, 전화, 문자)를 확인할 수 있습니다.
 
 ### Tab3 : 캘린더
 |캘린더 일정 추가|
 |--|
-|![calendar_inter_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/86e45e3b-8435-4ff1-b626-a0f3affe8384)|
+|![callendar_enter_schedule](https://github.com/Prolog365/Prolog365/assets/43375122/daf8aa07-25a4-47cf-b758-475649be1a98)|
 
 - 캘린더 일정 추가 : 캘린더를 통해 해당 날짜의 일정을 모아볼 수 있습니다. 그리고 오른쪽 하단의 추가 버튼을 이용해서 일정을 추가할 수 있습니다!
 
