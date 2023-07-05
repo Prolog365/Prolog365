@@ -27,7 +27,8 @@
 
 ## pre-view
 ### Intro : Splash
-![splash_gif](https://github.com/Prolog365/Prolog365/assets/43375122/d7255799-2639-49be-bec9-ca96b75d3dd2)
+![splash_gif](https://github.com/Prolog365/Prolog365/assets/43375122/8332da34-51f7-4881-8a5a-70739753bec3)
+
 ### Tab1 : 연락처
 
 ### Tab2 : 갤러리
