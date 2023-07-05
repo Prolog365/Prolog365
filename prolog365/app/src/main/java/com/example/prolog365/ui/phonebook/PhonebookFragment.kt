@@ -110,7 +110,7 @@ class PhonebookFragment : Fragment() {
         //PhonebookInfo.showPopupWindow()
     }
 
-    val permissions = arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.READ_EXTERNAL_STORAGE)
+    val permissions = arrayOf(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
     var searchText = ""
     var sortText = "asc"
 
